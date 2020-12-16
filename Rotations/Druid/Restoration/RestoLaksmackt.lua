@@ -71,11 +71,7 @@ local function createOptions()
     local function rotationOptions()
         local section
         -- General Options
-<<<<<<< HEAD
         section = br.ui:createSection(br.ui.window.profile, "Forms - 2012152047")
-=======
-        section = br.ui:createSection(br.ui.window.profile, "Forms - 095812042020")
->>>>>>> parent of 606df53c... RestoLaksmackt: fixes
         br.ui:createDropdownWithout(section, "Cat Key", br.dropOptions.Toggle, 6, "Set a key for cat/DPS form")
         br.ui:createDropdownWithout(section, "Bear Key", br.dropOptions.Toggle, 6, "Set a key for bear")
         br.ui:createDropdownWithout(section, "Owl Key", br.dropOptions.Toggle, 6, "Set a key for Owl/DPS form")
@@ -2396,7 +2392,6 @@ local function runRotation()
                                 return true
                             end
                         end
-<<<<<<< HEAD
                         -- keep it on focus
                         if UnitExists("focustarget") and not UnitIsDeadOrGhost("focustarget")
                                 and UnitAffectingCombat("focustarget") and hasThreat("focustarget") and getLineOfSight("focustarget", "player") then
@@ -2415,32 +2410,6 @@ local function runRotation()
                                 tank = tanks[i].unit
                                 --if not focus, check critical health on tanks
                                 if isChecked("Critical HP") and getHP(tank) < getValue("Critical HP") then
-=======
-                    end
-                else
-                    --raid shit here
-                    local raid_bloom_target = "none"
-                    if runeforge.theDarkTitansLesson.equiped and not buff.lifebloom.exists("player") or (buff.lifebloom.exists("player") and buff.lifebloom.remain("player") < 4.5) then
-                        if cast.lifebloom("player") then
-                            return true
-                        end
-                    end
-                    -- keep it on focus
-                    if UnitExists("focustarget") and not UnitIsDeadOrGhost("focustarget")
-                            and UnitAffectingCombat("focustarget") and hasThreat("focustarget") and getLineOfSight("focustarget", "player") then
-                        raid_bloom_target = "focustarget"
-                    end
-                    if raid_bloom_target == "none" then
-                        for i = 1, #tanks do
-                            tank = tanks[i].unit
-                            --if not focus, check critical health on tanks
-                            if isChecked("Critical HP") and getHP(tank) < getValue("Critical HP") then
-                                raid_bloom_target = tank
-                                break
-                            else
-                                --stick it on the tank that has aggro
-                                if cast.able.lifebloom(tank) and UnitThreatSituation(tank, "boss1target") ~= nil and UnitThreatSituation(tank, "boss1target") > 2 and getLineOfSight("player", tank) then
->>>>>>> parent of 606df53c... RestoLaksmackt: fixes
                                     raid_bloom_target = tank
                                     break
                                 else
@@ -3022,12 +2991,12 @@ local function runRotation()
             end
             if mode.forms == 2 then
                 if SpecificToggle("Cat Key") and not GetCurrentKeyBoardFocus()
-                        and (isChecked("Break form for critical") and lowest.hp > getOptionValue("Critical HP")) or not isChecked("Break form for critical")
+                        and (isChecked("Break form for critical") and lowest.hp > getOptionValue("Critical HP") or not isChecked("Break form for critical"))
                 then
                     cat_rest()
                     return true
                 elseif SpecificToggle("Owl Key") and not GetCurrentKeyBoardFocus()
-                        and (isChecked("Break form for critical") and lowest.hp > getOptionValue("Critical HP")) or not isChecked("Break form for critical")
+                        and (isChecked("Break form for critical") and lowest.hp > getOptionValue("Critical HP") or not isChecked("Break form for critical"))
                 then
                     owl_rest()
                     return true
